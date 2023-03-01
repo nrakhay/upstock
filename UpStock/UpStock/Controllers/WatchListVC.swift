@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import FloatingPanel
 
 class WatchListVC: UIViewController {
     private var searchTimer: Timer?
+    private var panel: FloatingPanelController?
     
     //MARK: - LifeCycle
     
@@ -17,18 +19,16 @@ class WatchListVC: UIViewController {
         view.backgroundColor = .systemBackground
         setupSearchController()
         setupTitleView()
-        setupChild()
+        setupFloatingPanel()
     }
 
     //MARK: - Private
     
-    private func setupChild() {
-        let vc = PanelViewController()
-        addChild(vc)
+    private func setupFloatingPanel() {
+        panel = FloatingPanelController()
+        panel?.surfaceView.backgroundColor = .secondarySystemBackground
         
-        view.addSubview(vc.view)
-        vc.view.frame = CGRect(x: 0, y: view.height/2, width: view.width, height: view.height)
-        vc.didMove(toParent: self)
+        panel?.addPanel(toParent: self)
     }
     
     private func setupTitleView() {

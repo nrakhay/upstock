@@ -1,0 +1,6 @@
+framework module Pods_UpStock {
+  umbrella header "Pods-UpStock-umbrella.h"
+
+  export *
+  module * { export * }
+}
