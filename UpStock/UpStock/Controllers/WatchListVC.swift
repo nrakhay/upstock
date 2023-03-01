@@ -18,17 +18,20 @@ class WatchListVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setupSearchController()
-        setupTitleView()
         setupFloatingPanel()
+        setupTitleView()
     }
 
     //MARK: - Private
     
     private func setupFloatingPanel() {
+        let vc = NewsVC()
         panel = FloatingPanelController()
         panel?.surfaceView.backgroundColor = .secondarySystemBackground
-        
+        panel?.set(contentViewController: vc)
         panel?.addPanel(toParent: self)
+        panel?.delegate = self
+        panel?.track(scrollView: vc.tableView)
     }
     
     private func setupTitleView() {
@@ -97,7 +100,11 @@ extension WatchListVC: SearchResultsVCDelegate {
         vc.title = searchResult.description
         present(navVC, animated: true)
     }
-    
-    
+}
+
+extension WatchListVC: FloatingPanelControllerDelegate {
+    func floatingPanelDidChangeState(_ fpc: FloatingPanelController) {
+        navigationItem.titleView?.isHidden = fpc.state == .full
+    }
 }
 
