@@ -8,7 +8,8 @@
 import UIKit
 
 class WatchListVC: UIViewController {
-
+    private var searchTimer: Timer?
+    
     //MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -16,9 +17,19 @@ class WatchListVC: UIViewController {
         view.backgroundColor = .systemBackground
         setupSearchController()
         setupTitleView()
+        setupChild()
     }
 
     //MARK: - Private
+    
+    private func setupChild() {
+        let vc = PanelViewController()
+        addChild(vc)
+        
+        view.addSubview(vc.view)
+        vc.view.frame = CGRect(x: 0, y: view.height/2, width: view.width, height: view.height)
+        vc.didMove(toParent: self)
+    }
     
     private func setupTitleView() {
         let titleView = UIView(
@@ -41,6 +52,7 @@ class WatchListVC: UIViewController {
         let resultVC = SearchResultsVC()
         let searchVC = UISearchController(searchResultsController: resultVC)
         
+        resultVC.delegate = self
         searchVC.searchResultsUpdater = self
         
         navigationItem.searchController = searchVC
@@ -55,11 +67,36 @@ extension WatchListVC: UISearchResultsUpdating {
             return
         }
         
-        // optimize to reduce number of api calls when user stops typing
-        // call api to search
-        // update results controller
+        searchTimer?.invalidate()
+        
+        searchTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false, block: { _ in
+            APICaller.shared.search(query: query) { result in
+                switch result {
+                case .success(let response):
+                    DispatchQueue.main.async {
+                        resultsVC.update(with: response.result)
+                    }
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        resultsVC.update(with: [])
+                    }
+                    
+                    print(error)
+                }
+            }
+        })
     }
-    
+}
+
+extension WatchListVC: SearchResultsVCDelegate {
+    func searchResultsVCDidSelect(searchResult: SearchResults) {
+        navigationItem.searchController?.searchBar.resignFirstResponder()
+        let vc = StockInfoVC()
+        
+        let navVC = UINavigationController(rootViewController: vc)
+        vc.title = searchResult.description
+        present(navVC, animated: true)
+    }
     
     
 }

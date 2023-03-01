@@ -20,6 +20,8 @@
 		5CFAE39D29AE708500888F97 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFAE39C29AE708500888F97 /* HapticsManager.swift */; };
 		5CFAE39F29AE922800888F97 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFAE39E29AE922800888F97 /* Extensions.swift */; };
 		5CFAE3A129AE950400888F97 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFAE3A029AE950400888F97 /* SearchResultTableViewCell.swift */; };
+		5CFAE3A329AF76DC00888F97 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFAE3A229AF76DC00888F97 /* SearchResponse.swift */; };
+		5CFAE3A729AFB9CF00888F97 /* PanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFAE3A629AFB9CF00888F97 /* PanelViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		5CFAE39C29AE708500888F97 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		5CFAE39E29AE922800888F97 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		5CFAE3A029AE950400888F97 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
+		5CFAE3A229AF76DC00888F97 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		5CFAE3A629AFB9CF00888F97 /* PanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,7 @@
 		5CFAE38B29AE47FA00888F97 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5CFAE3A229AF76DC00888F97 /* SearchResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -103,6 +108,7 @@
 				5CFAE38F29AE4A3400888F97 /* PopularNewsVC.swift */,
 				5CFAE39129AE4A5100888F97 /* SearchResultsVC.swift */,
 				5CFAE39329AE4A6400888F97 /* StockInfoVC.swift */,
+				5CFAE3A629AFB9CF00888F97 /* PanelViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -206,8 +212,10 @@
 				5CFAE39929AE703500888F97 /* PersistenceManager.swift in Sources */,
 				5CFAE39F29AE922800888F97 /* Extensions.swift in Sources */,
 				5CFAE37A29AE446300888F97 /* SceneDelegate.swift in Sources */,
+				5CFAE3A329AF76DC00888F97 /* SearchResponse.swift in Sources */,
 				5CFAE39029AE4A3400888F97 /* PopularNewsVC.swift in Sources */,
 				5CFAE39429AE4A6400888F97 /* StockInfoVC.swift in Sources */,
+				5CFAE3A729AFB9CF00888F97 /* PanelViewController.swift in Sources */,
 				5CFAE39B29AE707500888F97 /* APICaller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

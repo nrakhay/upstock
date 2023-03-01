@@ -8,17 +8,20 @@
 import UIKit
 
 protocol SearchResultsVCDelegate: AnyObject {
-    func searchResultsVCDidSelect(searchResult: String)
+    func searchResultsVCDidSelect(searchResult: SearchResults)
 }
 
 class SearchResultsVC: UIViewController {
-
     weak var delegate: SearchResultsVCDelegate?
+    
+    private var results: [SearchResults] = []
     
     private let tableView: UITableView = {
         let table = UITableView()
         
         table.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.identifier)
+        
+        table.isHidden = true
         return table
     }()
     
@@ -39,11 +42,16 @@ class SearchResultsVC: UIViewController {
         tableView.dataSource = self
     }
     
+    public func update(with results: [SearchResults]) {
+        self.results = results
+        tableView.isHidden = results.isEmpty
+        tableView.reloadData()
+    }
 }
 
 extension SearchResultsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return results.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -52,15 +60,18 @@ extension SearchResultsVC: UITableViewDelegate, UITableViewDataSource {
             for: indexPath
         )
 
-        cell.textLabel?.text = "AAPL"
-        cell.detailTextLabel?.text = "Apple Inc."
+        let model = results[indexPath.row]
+        
+        cell.textLabel?.text = model.symbol
+        cell.detailTextLabel?.text = model.description
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        delegate?.searchResultsVCDidSelect(searchResult: "AAPL")
+        let model = results[indexPath.row]
+        delegate?.searchResultsVCDidSelect(searchResult: model)
     }
 }
 
