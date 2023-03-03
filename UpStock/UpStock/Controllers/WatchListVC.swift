@@ -25,13 +25,12 @@ class WatchListVC: UIViewController {
     //MARK: - Private
     
     private func setupFloatingPanel() {
-        let vc = NewsVC()
-        panel = FloatingPanelController()
-        panel?.surfaceView.backgroundColor = .secondarySystemBackground
-        panel?.set(contentViewController: vc)
-        panel?.addPanel(toParent: self)
-        panel?.delegate = self
-        panel?.track(scrollView: vc.tableView)
+        let vc = NewsVC(type: .topStories)
+        let panel = FloatingPanelController(delegate: self)
+        panel.surfaceView.backgroundColor = .secondarySystemBackground
+        panel.set(contentViewController: vc)
+        panel.addPanel(toParent: self)
+        panel.track(scrollView: vc.tableView)
     }
     
     private func setupTitleView() {

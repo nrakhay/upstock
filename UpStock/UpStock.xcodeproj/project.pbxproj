@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C96B0C729B25CF50008A650 /* NewsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C96B0C629B25CF50008A650 /* NewsHeaderView.swift */; };
 		5CFAE37829AE446300888F97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFAE37729AE446300888F97 /* AppDelegate.swift */; };
 		5CFAE37A29AE446300888F97 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFAE37929AE446300888F97 /* SceneDelegate.swift */; };
 		5CFAE37C29AE446300888F97 /* WatchListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFAE37B29AE446300888F97 /* WatchListVC.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C96B0C629B25CF50008A650 /* NewsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHeaderView.swift; sourceTree = "<group>"; };
 		5CFAE37429AE446300888F97 /* UpStock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UpStock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CFAE37729AE446300888F97 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5CFAE37929AE446300888F97 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			children = (
 				5CFAE38229AE446400888F97 /* LaunchScreen.storyboard */,
 				5CFAE3A029AE950400888F97 /* SearchResultTableViewCell.swift */,
+				5C96B0C629B25CF50008A650 /* NewsHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				5CFAE39F29AE922800888F97 /* Extensions.swift in Sources */,
 				5CFAE37A29AE446300888F97 /* SceneDelegate.swift in Sources */,
 				5CFAE3A329AF76DC00888F97 /* SearchResponse.swift in Sources */,
+				5C96B0C729B25CF50008A650 /* NewsHeaderView.swift in Sources */,
 				5CFAE39029AE4A3400888F97 /* NewsVC.swift in Sources */,
 				5CFAE39429AE4A6400888F97 /* StockInfoVC.swift in Sources */,
 				5CFAE39B29AE707500888F97 /* APICaller.swift in Sources */,
