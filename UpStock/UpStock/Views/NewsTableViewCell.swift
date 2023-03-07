@@ -33,19 +33,21 @@ class NewsTableViewCell: UITableViewCell {
     
     private let headlineLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 17, weight: .regular)
+        label.font = .systemFont(ofSize: 24, weight: .regular)
+        label.numberOfLines = 0
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .secondaryLabel
         label.font = .systemFont(ofSize: 14, weight: .light)
         return label
     }()
     
     private let storyImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = .tertiaryLabel
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 6
@@ -55,8 +57,8 @@ class NewsTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = nil
-        backgroundColor = nil
+        contentView.backgroundColor = .secondarySystemBackground
+        backgroundColor = .secondarySystemBackground
         addSubviews(sourceLabel, headlineLabel, dateLabel, storyImageView)
     }
     

@@ -34,7 +34,7 @@ class NewsVC: UIViewController {
     //MARK: - Properties
     private var type: Type
     private var stories: [NewsStory] = [
-        NewsStory(category: "a", datetime: 129, headline: "wjbjjjbjaj", image: "", related: "r", source: "bbc", summary: "ksndknakjbjbjbjjdnak", url: "")
+        NewsStory(category: "a", datetime: 129, headline: "wjbjjjb ajdjaja dadadaaj", image: "", related: "r", source: "bbc", summary: "ksndknakjbjbjbjjdnak", url: "")
     ]
     
     
