@@ -23,15 +23,19 @@ class NewsVC: UIViewController {
     }
     let tableView: UITableView = {
         let table = UITableView()
-        table.register(NewsHeaderView.self, forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
-        
+        table.register(NewsTableViewCell.self,
+                       forCellReuseIdentifier: NewsTableViewCell.identifier)
+        table.register(NewsHeaderView.self,
+                       forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
         table.backgroundColor = .clear
         return table
     }()
     
     //MARK: - Properties
     private var type: Type
-    private var stories = ["first"]
+    private var stories: [NewsStory] = [
+        NewsStory(category: "a", datetime: 129, headline: "wjbjjjbjaj", image: "", related: "r", source: "bbc", summary: "ksndknakjbjbjbjjdnak", url: "")
+    ]
     
     
     //MARK: - Init
@@ -91,13 +95,19 @@ extension NewsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.contentView.backgroundColor = .secondarySystemBackground
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: NewsTableViewCell.identifier,
+            for: indexPath
+        ) as? NewsTableViewCell else {
+            fatalError()
+        }
+        
+        cell.configure(with: .init(model: stories[indexPath.row]))
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        return NewsTableViewCell.preferredHeight
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
