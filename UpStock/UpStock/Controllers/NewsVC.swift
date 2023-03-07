@@ -8,18 +8,6 @@
 import UIKit
 
 class NewsVC: UIViewController {
-    let tableView: UITableView = {
-        let table = UITableView()
-        table.register(NewsHeaderView.self, forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
-        
-        table.backgroundColor = .clear
-        return table
-    }()
-    
-    private let type: Type
-    
-    private var tableHeaderView = UIView()
-    
     enum `Type` {
         case topStories
         case company(symbol: String)
@@ -33,6 +21,18 @@ class NewsVC: UIViewController {
             }
         }
     }
+    let tableView: UITableView = {
+        let table = UITableView()
+        table.register(NewsHeaderView.self, forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
+        
+        table.backgroundColor = .clear
+        return table
+    }()
+    
+    //MARK: - Properties
+    private var type: Type
+    private var stories = ["first"]
+    
     
     //MARK: - Init
     
@@ -58,6 +58,7 @@ class NewsVC: UIViewController {
     }
     
     //MARK: - Private
+    private var tableHeaderView = UIView()
     
     private func setupTable() {
         view.addSubview(tableView)
@@ -67,7 +68,15 @@ class NewsVC: UIViewController {
     }
 
     private func fetchNews() {
-        
+//        APICaller.shared.news(for: .topStories) { result in
+//            switch result {
+//            case .failure(let error):
+//                print(error)
+//            case .success(let response):
+//                self.stories = response
+//                print(self.stories[0])
+//            }
+//        }
     }
     
     private func open(url: URL) {
@@ -78,7 +87,7 @@ class NewsVC: UIViewController {
 
 extension NewsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return stories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -92,12 +101,16 @@ extension NewsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewsHeaderView.identifier
+        guard let header = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: NewsHeaderView.identifier
         ) as? NewsHeaderView else {
             return nil
         }
                 
-        header.configure(with: .init(title: self.type.title, shouldShowAddButton: true))
+        header.configure(with: .init(
+            title: self.type.title,
+            shouldShowAddButton: false
+        ))
         return header
     }
     

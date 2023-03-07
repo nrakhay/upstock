@@ -13,6 +13,7 @@ final class APICaller {
     private struct Constants {
         static let apiKey = "cfvjhvhr01qtdvl3pr60cfvjhvhr01qtdvl3pr6g"
         static let baseUrl = "https://finnhub.io/api/v1/"
+        static let day: TimeInterval = 3600 * 24
     }
     
     private init() { }
@@ -38,10 +39,41 @@ final class APICaller {
             completion: completion)
     }
     
+    public func news(
+        for type: NewsVC.`Type`,
+        completion: @escaping (Result<[NewsStory], Error>) -> Void
+    ) {
+        switch type {
+        case .topStories:
+            request(
+                url: url( for: .topStories, queryParams: ["category": "general"]),
+                expecting: [NewsStory].self,
+                completion: completion
+            )
+        case .company(let symbol):
+            let today = Date()
+            let oneMonthBack = Date().addingTimeInterval(-(Constants.day * 7))
+            request(
+                url: url(
+                    for: .companyNews,
+                    queryParams: [
+                        "symbol": symbol,
+                        "from": DateFormatter.newsDateFormatter.string(from: oneMonthBack),
+                        "to": DateFormatter.newsDateFormatter.string(from: today)
+                    ]
+                ),
+                expecting: [NewsStory].self,
+                completion: completion
+            )
+        }
+    }
+    
     //MARK: - Private
     
     private enum EndPoint: String {
         case search
+        case topStories = "news"
+        case companyNews = "company-news"
     }
     
     private enum APIError: Error {
@@ -64,8 +96,6 @@ final class APICaller {
         queryItems.append(.init(name: "token", value: Constants.apiKey))
         
         urlString += "?" + queryItems.map { "\($0.name)=\($0.value ?? "")" }.joined(separator: "&")
-        
-        print(urlString)
         
         return URL(string: urlString)
     }
