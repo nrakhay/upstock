@@ -5,7 +5,7 @@ target 'UpStock' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for UpStock
-pod 'FloatingPanel'
+  pod 'FloatingPanel'
+  pod 'SDWebImage'
 
 end

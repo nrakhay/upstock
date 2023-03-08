@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class NewsTableViewCell: UITableViewCell {
     static let identifier = "NewsTableViewCell"
@@ -20,8 +21,8 @@ class NewsTableViewCell: UITableViewCell {
         init(model: NewsStory) {
             self.source = model.source
             self.headline = model.headline
-            self.dateString = "Jan 21, 2023"
-            self.imageURL = nil
+            self.dateString = .dateToString(from: model.datetime)
+            self.imageURL = URL(string: model.image)
         }
     }
     
@@ -113,5 +114,6 @@ class NewsTableViewCell: UITableViewCell {
         headlineLabel.text = viewModel.headline
         sourceLabel.text = viewModel.source
         dateLabel.text = viewModel.dateString
+        storyImageView.sd_setImage(with: viewModel.imageURL, completed: nil)
     }
 }

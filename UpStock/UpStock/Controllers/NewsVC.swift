@@ -33,9 +33,7 @@ class NewsVC: UIViewController {
     
     //MARK: - Properties
     private var type: Type
-    private var stories: [NewsStory] = [
-        NewsStory(category: "a", datetime: 129, headline: "wjbjjjb ajdjaja dadadaaj", image: "", related: "r", source: "bbc", summary: "ksndknakjbjbjbjjdnak", url: "")
-    ]
+    private var stories = [NewsStory]()
     
     
     //MARK: - Init
@@ -72,15 +70,17 @@ class NewsVC: UIViewController {
     }
 
     private func fetchNews() {
-//        APICaller.shared.news(for: .topStories) { result in
-//            switch result {
-//            case .failure(let error):
-//                print(error)
-//            case .success(let response):
-//                self.stories = response
-//                print(self.stories[0])
-//            }
-//        }
+        APICaller.shared.news(for: .topStories) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let response):
+                DispatchQueue.main.async {
+                    self?.stories = response
+                    self?.tableView.reloadData()
+                }
+            }
+        }
     }
     
     private func open(url: URL) {
