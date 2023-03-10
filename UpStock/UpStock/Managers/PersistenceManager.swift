@@ -39,7 +39,7 @@ final class PersistenceManager {
     
     //MARK: - Private
     private var hasOnBoarded: Bool {
-        return userDefaults.bool(forKey: "hasOnBoarded")
+        return userDefaults.bool(forKey: Constants.onboardedKey)
     }
     
     private func setupDefaults() {
@@ -52,13 +52,13 @@ final class PersistenceManager {
             "NVDA": "Nvidia Inc.",
             "FB": "Facebook Inc.",
             "UBER": "Uber Technologies Inc.",
-            "NKE:": "Nike",
+            "NKE:": "Nike Inc.",
             "PINS": "Pinterest Inc."
         ]
         
-        let symbols = map.keys.map { $0 }
+        let symbolsList = map.keys.map { $0 }
         
-        userDefaults.set(symbols, forKey: "watchlist")
+        userDefaults.set(symbolsList, forKey: "watchlist")
         
         for (symbol, name) in map {
             userDefaults.set(name, forKey: symbol)
