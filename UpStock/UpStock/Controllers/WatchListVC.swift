@@ -9,6 +9,8 @@ import UIKit
 import FloatingPanel
 
 class WatchListVC: UIViewController {
+    static var maxChangeWidth: CGFloat = 0
+    
     private var searchTimer: Timer?
     
     private var panel: FloatingPanelController?
@@ -19,7 +21,8 @@ class WatchListVC: UIViewController {
     
     private let tableView: UITableView = {
         let table = UITableView()
-        
+        table.register(WatchlistTableViewCell.self,
+                       forCellReuseIdentifier: WatchlistTableViewCell.identifier)
         return table
     }()
     
@@ -33,6 +36,11 @@ class WatchListVC: UIViewController {
         fetchWatchlistData()
         setupFloatingPanel()
         setupTitleView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame = view.bounds
     }
 
     //MARK: - Private
@@ -206,11 +214,22 @@ extension WatchListVC: FloatingPanelControllerDelegate {
 
 extension WatchListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        watchlistMap.count
+        viewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: WatchlistTableViewCell.identifier,
+            for: indexPath) as? WatchlistTableViewCell
+        else {
+            fatalError()
+        }
+        cell.configure(with: viewModels[indexPath.row])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return WatchlistTableViewCell.preferredHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
