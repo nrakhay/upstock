@@ -95,8 +95,6 @@ class WatchListVC: UIViewController {
             )
         }
         
-        print("\n\n\(viewModels)\n\n")
-        
         self.viewModels = viewModels
     }
     
@@ -110,7 +108,6 @@ class WatchListVC: UIViewController {
         }
         
         let difference = 1 - (latestClose / priorClose)
-        print("\(symbol): \(difference)")
         
         return difference
     }
@@ -224,6 +221,7 @@ extension WatchListVC: UITableViewDelegate, UITableViewDataSource {
         else {
             fatalError()
         }
+        cell.delegate = self
         cell.configure(with: viewModels[indexPath.row])
         return cell
     }
@@ -234,8 +232,12 @@ extension WatchListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        
+    }
+}
+
+extension WatchListVC: WatchlistTableViewCellDelegate {
+    func didUpdateMaxWidth() {
+        tableView.reloadData()
     }
 }
 

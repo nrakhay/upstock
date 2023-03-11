@@ -7,8 +7,14 @@
 
 import UIKit
 
+protocol WatchlistTableViewCellDelegate: AnyObject {
+    func didUpdateMaxWidth()
+}
+
 class WatchlistTableViewCell: UITableViewCell {
     static let identifier = "WatchlistTableViewCell"
+    
+    weak var delegate: WatchlistTableViewCellDelegate?
     
     static let preferredHeight: CGFloat = 60
     
@@ -35,6 +41,7 @@ class WatchlistTableViewCell: UITableViewCell {
     
     private let priceLabel: UILabel = {
         let label = UILabel()
+        label.textAlignment = .right
         label.font = .systemFont(ofSize: 15, weight: .regular)
         return label
     }()
@@ -42,6 +49,9 @@ class WatchlistTableViewCell: UITableViewCell {
     private let changeLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 3
+        label.textAlignment = .right
         label.font = .systemFont(ofSize: 15, weight: .regular)
         return label
     }()
@@ -104,18 +114,24 @@ class WatchlistTableViewCell: UITableViewCell {
             max(priceLabel.width, changeLabel.width),
             WatchListVC.maxChangeWidth
         )
+        
+        if currentWidth > WatchListVC.maxChangeWidth {
+            WatchListVC.maxChangeWidth = currentWidth + 3
+            delegate?.didUpdateMaxWidth()
+        }
+        
         priceLabel.frame = CGRect(
-            x: contentView.width - 10 - priceLabel.width,
-            y: 0,
-            width: priceLabel.width,
+            x: contentView.width - 10 - currentWidth,
+            y: 6,
+            width: currentWidth,
             height: priceLabel.height
         )
         
         changeLabel.frame = CGRect(
-            x: contentView.width - 10 - changeLabel.width,
+            x: contentView.width - 10 - currentWidth,
             y: priceLabel.bottom,
-            width: changeLabel.width,
-            height: changeLabel.height
+            width: currentWidth,
+            height: changeLabel.height + 2
         )
         
         miniChartView.frame = CGRect(
