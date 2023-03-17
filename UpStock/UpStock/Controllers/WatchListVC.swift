@@ -26,6 +26,9 @@ class WatchListVC: UIViewController {
         return table
     }()
     
+    private var observer: NSObjectProtocol?
+    
+    
     //MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -36,6 +39,7 @@ class WatchListVC: UIViewController {
         fetchWatchlistData()
         setupFloatingPanel()
         setupTitleView()
+        setupObserver()
     }
     
     override func viewDidLayoutSubviews() {
@@ -45,12 +49,23 @@ class WatchListVC: UIViewController {
 
     //MARK: - Private
     
+    private func setupObserver() {
+        observer = NotificationCenter.default.addObserver(
+            forName: .didAddToWatchlist,
+            object: nil,
+            queue: .main,
+            using: { [weak self] _ in
+                self?.viewModels.removeAll()
+                self?.fetchWatchlistData()
+        })
+    }
+    
     private func fetchWatchlistData() {
         let symbols = PersistenceManager.shared.watchlist
         
         let group = DispatchGroup()
         
-        for symbol in symbols {
+        for symbol in symbols where watchlistMap[symbol] == nil {
             group.enter()
             
             APICaller.shared.marketData(for: symbol) { [weak self] result in
@@ -90,7 +105,11 @@ class WatchListVC: UIViewController {
                     companyName: UserDefaults.standard.string(forKey: symbol) ?? "Company",
                     price: getLatestClosingPrice(from: candleSticks),
                     changeColor: changePercentage < 0 ? .systemRed : .systemGreen,
-                    changePercentage: .percentage(from: changePercentage)
+                    changePercentage: .percentage(from: changePercentage),
+                    charViewModel: .init(
+                        data: candleSticks.reversed().map({$0.close}),
+                        showLegend: false,
+                        showAxis: false)
                 )
             )
         }
@@ -195,7 +214,10 @@ extension WatchListVC: UISearchResultsUpdating {
 extension WatchListVC: SearchResultsVCDelegate {
     func searchResultsVCDidSelect(searchResult: SearchResults) {
         navigationItem.searchController?.searchBar.resignFirstResponder()
-        let vc = StockInfoVC()
+        let vc = StockInfoVC(
+            symbol: searchResult.symbol,
+            companyName: searchResult.description
+        )
         
         let navVC = UINavigationController(rootViewController: vc)
         vc.title = searchResult.description
@@ -226,12 +248,45 @@ extension WatchListVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            
+            PersistenceManager.shared.removeFromWatchlist(symbol: viewModels[indexPath.row].symbol)
+            
+            viewModels.remove(at: indexPath.row)
+            
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            tableView.endUpdates()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return WatchlistTableViewCell.preferredHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let viewModel = viewModels[indexPath.row]
+        
+        let vc = StockInfoVC(
+            symbol: viewModel.symbol,
+            companyName: viewModel.companyName,
+            candleStickData: watchlistMap[viewModel.symbol] ?? []
+        )
+        let navVC = UINavigationController(rootViewController: vc)
+        present(navVC, animated: true)
+        
     }
 }
 

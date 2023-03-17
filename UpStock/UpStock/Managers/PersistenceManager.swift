@@ -28,12 +28,26 @@ final class PersistenceManager {
         return userDefaults.stringArray(forKey: Constants.watchlistKey) ?? []
     }
     
-    public func addToWatchlist() {
+    public func addToWatchlist(symbol: String, companyName: String) {
+        var newList = watchlist
+        newList.append(symbol)
         
+        userDefaults.set(newList, forKey: Constants.watchlistKey)
+        userDefaults.set(companyName, forKey: symbol)
+        
+        NotificationCenter.default.post(name: .didAddToWatchlist, object: nil)
     }
     
-    public func removeFromWatchlist() {
+    public func removeFromWatchlist(symbol: String) {
+        var newList = [String]()
         
+        userDefaults.set(nil, forKey: symbol)
+        
+        for item in watchlist where item != symbol {
+            newList.append(item)
+        }
+        
+        userDefaults.set(newList, forKey: Constants.watchlistKey)
     }
     
     
@@ -50,9 +64,9 @@ final class PersistenceManager {
             "MSFT": "Microsoft Corporation",
             "AMZN": "Amazon.com Inc.",
             "NVDA": "Nvidia Inc.",
-            "FB": "Facebook Inc.",
+            "META": "Facebook Inc.",
             "UBER": "Uber Technologies Inc.",
-            "NKE:": "Nike Inc.",
+            "NKE": "Nike Inc.",
             "PINS": "Pinterest Inc."
         ]
         
