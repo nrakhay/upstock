@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class StockInfoVC: UIViewController {
     //MARK: - Properties
@@ -48,6 +49,8 @@ class StockInfoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = companyName
+        setupCloseButton()
         setupTable()
         fetchFinancialData()
         fetchNews()
@@ -59,11 +62,27 @@ class StockInfoVC: UIViewController {
         tableView.frame = view.bounds
     }
     
+    //MARK: - Private
+    
+    private func setupCloseButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: #selector(didTapClose)
+        )
+    }
+    
+    @objc private func didTapClose() {
+        dismiss(animated: true)
+    }
+    
     private func setupTable() {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        
+        tableView.tableHeaderView = UIView(
+            frame: CGRect(x: 0, y: 0, width: view.width, height: (view.width * 0.7) + 100)
+        )
     }
     
     private func fetchFinancialData() {
@@ -72,7 +91,18 @@ class StockInfoVC: UIViewController {
     }
     
     private func fetchNews() {
-        
+        APICaller.shared.news(
+            for: .company(symbol: symbol)) { [weak self] result in
+                switch result {
+                case .success(let stories):
+                    DispatchQueue.main.async {
+                        self?.stories = stories
+                        self?.tableView.reloadData()
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
     }
     
     private func renderChart() {
@@ -113,7 +143,7 @@ extension StockInfoVC: UITableViewDelegate, UITableViewDataSource {
         header.configure(
             with: .init(
                 title: symbol.uppercased(),
-                shouldShowAddButton: true
+                shouldShowAddButton: !PersistenceManager.shared.watchlistContainsSymbol(symbol: symbol)
             )
         )
         
@@ -123,10 +153,34 @@ extension StockInfoVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return NewsHeaderView.preferredHeight
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let story = stories[indexPath.row]
+        
+        guard let url = URL(string: story.url) else { return }
+        
+        let vc = SFSafariViewController(url: url)
+        present(vc, animated: true)
+    }
 }
 
 extension StockInfoVC: NewsHeaderViewDelegate {
     func newsHeaderViewDidTappedAddButton(_ headerView: NewsHeaderView) {
+        headerView.button.isHidden = true
+        PersistenceManager.shared.addToWatchlist(
+            symbol: symbol,
+            companyName: companyName
+        )
         
+        let alert = UIAlertController(
+            title: "Added to watchlist",
+            message: "We've added \(companyName) to your watchlist.",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+        present(alert, animated: true)
     }
 }

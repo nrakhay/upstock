@@ -151,6 +151,5 @@ extension NewsVC: UITableViewDelegate, UITableViewDataSource {
         )
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
         present(alert, animated: true)
-        
     }
 }

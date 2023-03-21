@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C19F77A29C4F38A0090CAFA /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C19F77929C4F38A0090CAFA /* Helper.swift */; };
 		5C96B0C729B25CF50008A650 /* NewsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C96B0C629B25CF50008A650 /* NewsHeaderView.swift */; };
 		5CBB1D7D29B7A6DE009BA920 /* NewsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBB1D7C29B7A6DE009BA920 /* NewsStory.swift */; };
 		5CBB1D7F29B7C308009BA920 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBB1D7E29B7C308009BA920 /* NewsTableViewCell.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C19F77929C4F38A0090CAFA /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		5C96B0C629B25CF50008A650 /* NewsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHeaderView.swift; sourceTree = "<group>"; };
 		5CBB1D7C29B7A6DE009BA920 /* NewsStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsStory.swift; sourceTree = "<group>"; };
 		5CBB1D7E29B7C308009BA920 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				5CFAE37929AE446300888F97 /* SceneDelegate.swift */,
 				5CFAE38029AE446400888F97 /* Assets.xcassets */,
 				5CFAE39E29AE922800888F97 /* Extensions.swift */,
+				5C19F77929C4F38A0090CAFA /* Helper.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				5CFAE37829AE446300888F97 /* AppDelegate.swift in Sources */,
 				5CFAE39229AE4A5100888F97 /* SearchResultsVC.swift in Sources */,
 				5CFAE39929AE703500888F97 /* PersistenceManager.swift in Sources */,
+				5C19F77A29C4F38A0090CAFA /* Helper.swift in Sources */,
 				5CFAE39F29AE922800888F97 /* Extensions.swift in Sources */,
 				5CBB1D8329B9DF51009BA920 /* WatchlistTableViewCell.swift in Sources */,
 				5CBB1D8529B9E268009BA920 /* StockChartView.swift in Sources */,

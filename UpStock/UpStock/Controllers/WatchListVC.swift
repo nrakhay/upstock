@@ -286,7 +286,6 @@ extension WatchListVC: UITableViewDelegate, UITableViewDataSource {
         )
         let navVC = UINavigationController(rootViewController: vc)
         present(navVC, animated: true)
-        
     }
 }
 

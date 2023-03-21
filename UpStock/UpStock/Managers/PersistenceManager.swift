@@ -28,6 +28,10 @@ final class PersistenceManager {
         return userDefaults.stringArray(forKey: Constants.watchlistKey) ?? []
     }
     
+    public func watchlistContainsSymbol(symbol: String) -> Bool {
+        return watchlist.contains(symbol)
+    }
+    
     public func addToWatchlist(symbol: String, companyName: String) {
         var newList = watchlist
         newList.append(symbol)
