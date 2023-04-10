@@ -8,10 +8,10 @@
 import Foundation
 
 struct FinancialsResponse: Codable {
-    let metric: Metric
+    let metric: Metrics
 }
 
-struct Metric: Codable {
+struct Metrics: Codable {
     let tenDayAverageTradingVolume: Float
     let annualHigh: Float
     let annualLow: Float

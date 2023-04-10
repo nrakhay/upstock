@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5C19F77A29C4F38A0090CAFA /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C19F77929C4F38A0090CAFA /* Helper.swift */; };
+		5C45F7F929D5CE1D00F1D59F /* MetricCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45F7F829D5CE1D00F1D59F /* MetricCollectionViewCell.swift */; };
 		5C96B0C729B25CF50008A650 /* NewsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C96B0C629B25CF50008A650 /* NewsHeaderView.swift */; };
 		5CBB1D7D29B7A6DE009BA920 /* NewsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBB1D7C29B7A6DE009BA920 /* NewsStory.swift */; };
 		5CBB1D7F29B7C308009BA920 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBB1D7E29B7C308009BA920 /* NewsTableViewCell.swift */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		5C19F77929C4F38A0090CAFA /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		5C45F7F829D5CE1D00F1D59F /* MetricCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C96B0C629B25CF50008A650 /* NewsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHeaderView.swift; sourceTree = "<group>"; };
 		5CBB1D7C29B7A6DE009BA920 /* NewsStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsStory.swift; sourceTree = "<group>"; };
 		5CBB1D7E29B7C308009BA920 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				5CBB1D8229B9DF51009BA920 /* WatchlistTableViewCell.swift */,
 				5CBB1D8429B9E268009BA920 /* StockChartView.swift */,
 				5CBC504C29CB54A500FF0EA2 /* StockDetailHeaderView.swift */,
+				5C45F7F829D5CE1D00F1D59F /* MetricCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				5CFAE39929AE703500888F97 /* PersistenceManager.swift in Sources */,
 				5C19F77A29C4F38A0090CAFA /* Helper.swift in Sources */,
 				5CBC504D29CB54A500FF0EA2 /* StockDetailHeaderView.swift in Sources */,
+				5C45F7F929D5CE1D00F1D59F /* MetricCollectionViewCell.swift in Sources */,
 				5CFAE39F29AE922800888F97 /* Extensions.swift in Sources */,
 				5CBC504B29CB512400FF0EA2 /* FinancialsResponse.swift in Sources */,
 				5CBB1D8329B9DF51009BA920 /* WatchlistTableViewCell.swift in Sources */,

@@ -8,7 +8,6 @@
 import UIKit
 
 class StockChartView: UIView {
-    
     struct ViewModel {
         let data: [Double]
         let showLegend: Bool
