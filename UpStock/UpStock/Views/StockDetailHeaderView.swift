@@ -9,7 +9,6 @@ import UIKit
 
 class StockDetailHeaderView: UIView {
     private var metricViewModels: [MetricCollectionViewCell.ViewModel] = []
-    private var chartViewModel: StockChartView.ViewModel?
     private var symbol: String = ""
 
     private let chartView = StockChartView()
@@ -42,6 +41,7 @@ class StockDetailHeaderView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         collectionView.frame = CGRect(x: 0, y: height - 100, width: width, height: height - 100)
+        chartView.frame = CGRect(x: 0, y: 0, width: width, height: height - 100)
     }
     
     func configure(
@@ -49,8 +49,8 @@ class StockDetailHeaderView: UIView {
         metricsViewModels: [MetricCollectionViewCell.ViewModel]
     ) {
         self.metricViewModels = metricsViewModels
-        self.chartViewModel = chartViewModel
-        print(chartViewModel)
+        chartView.configure(with: chartViewModel)
+        print(chartViewModel.data.count)
         collectionView.reloadData()
     }
 }

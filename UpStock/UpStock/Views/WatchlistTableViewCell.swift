@@ -24,7 +24,7 @@ class WatchlistTableViewCell: UITableViewCell {
         let price: String // formatted
         let changeColor: UIColor // red or green
         let changePercentage: String
-        let charViewModel: StockChartView.ViewModel
+        let chartViewModel: StockChartView.ViewModel
     }
     
     private let symbolLabel: UILabel = {

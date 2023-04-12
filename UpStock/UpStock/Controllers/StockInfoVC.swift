@@ -150,7 +150,6 @@ class StockInfoVC: UIViewController {
         }
         
         headerView.configure(chartViewModel: .init(data: candleStickData.reversed().map({$0.close}), showLegend: true, showAxis: true), metricsViewModels: viewModels)
-        headerView.backgroundColor = .red
         
         tableView.tableHeaderView = headerView
     }

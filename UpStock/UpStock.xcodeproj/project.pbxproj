@@ -203,6 +203,8 @@
 			dependencies = (
 			);
 			name = UpStock;
+			packageProductDependencies = (
+			);
 			productName = UpStock;
 			productReference = 5CFAE37429AE446300888F97 /* UpStock.app */;
 			productType = "com.apple.product-type.application";
@@ -231,6 +233,8 @@
 				Base,
 			);
 			mainGroup = 5CFAE36B29AE446300888F97;
+			packageReferences = (
+			);
 			productRefGroup = 5CFAE37529AE446300888F97 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
